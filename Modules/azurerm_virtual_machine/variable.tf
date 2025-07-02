@@ -1,0 +1,12 @@
+variable "nic_name" {}
+variable "location" {}
+variable "resource_group_name" {}
+variable "subnet_id" {}
+variable "vm_name" {}
+variable "size" {}
+variable "admin_username" {}
+variable "admin_password" {}
+variable "publisher" {}
+variable "offer" {}
+variable "sku" {}
+variable "public_ip_address_id" {}
