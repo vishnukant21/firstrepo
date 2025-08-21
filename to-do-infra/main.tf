@@ -58,7 +58,7 @@ module "mssql_database" {
   depends_on = [module.sql_server]
   source     = "../Modules/azurerm_sql_database"
   mssql_name = "mssql_database"
-  server_id  = "/subscriptions/51b6ad96-2bb6-48e5-b566-1d3406221d56/resourceGroups/vishnu-rg/providers/Microsoft.Sql/servers/todo-server002"
+  server_id  = "/subscriptions/8c7f87da-a447-4222-8e07-a8253eaea14b/resourceGroups/vishnu-rg/providers/Microsoft.Sql/servers/todo-server002"
 }
 module "frontend_vm" {
   depends_on = [module.subnet_frontend, module.frt_pip]
@@ -67,8 +67,8 @@ module "frontend_vm" {
   nic_name             = "todo-frontnic"
   location             = "Central US"
   resource_group_name  = "vishnu-rg"
-  public_ip_address_id = "/subscriptions/51b6ad96-2bb6-48e5-b566-1d3406221d56/resourceGroups/vishnu-rg/providers/Microsoft.Network/publicIPAddresses/todopip-frt"
-  subnet_id            = "/subscriptions/51b6ad96-2bb6-48e5-b566-1d3406221d56/resourceGroups/vishnu-rg/providers/Microsoft.Network/virtualNetworks/todovnet001/subnets/frontend-subnet"
+  public_ip_address_id = "/subscriptions/8c7f87da-a447-4222-8e07-a8253eaea14b/resourceGroups/vishnu-rg/providers/Microsoft.Network/publicIPAddresses/todopip-frt"
+  subnet_id            = "/subscriptions/8c7f87da-a447-4222-8e07-a8253eaea14b/resourceGroups/vishnu-rg/providers/Microsoft.Network/virtualNetworks/todovnet001/subnets/frontend-subnet"
   vm_name              = "todo-frontendvm"
   size                 = "Standard_B1s"
   admin_username       = "azureadmin"
@@ -85,8 +85,8 @@ module "backend_vm" {
   nic_name             = "todo-backnic"
   location             = "Central US"
   resource_group_name  = "vishnu-rg"
-  public_ip_address_id = "/subscriptions/51b6ad96-2bb6-48e5-b566-1d3406221d56/resourceGroups/vishnu-rg/providers/Microsoft.Network/publicIPAddresses/todopip-bck"
-  subnet_id            = "/subscriptions/51b6ad96-2bb6-48e5-b566-1d3406221d56/resourceGroups/vishnu-rg/providers/Microsoft.Network/virtualNetworks/todovnet001/subnets/backend-subnet"
+  public_ip_address_id = "/subscriptions/8c7f87da-a447-4222-8e07-a8253eaea14b/resourceGroups/vishnu-rg/providers/Microsoft.Network/publicIPAddresses/todopip-bck"
+  subnet_id            = "/subscriptions/8c7f87da-a447-4222-8e07-a8253eaea14b/resourceGroups/vishnu-rg/providers/Microsoft.Network/virtualNetworks/todovnet001/subnets/backend-subnet"
   vm_name              = "todo-backendvm"
   size                 = "Standard_B1s"
   admin_username       = "azureadmin"
@@ -101,5 +101,5 @@ module "backend_vm" {
 #   name                = "todo-keyvault"
 #   location            = "Central US"
 #   resource_group_name = "vishnu-rg"
-#   tenant_id           = "d23460dcb-ce93-422e-bb84-6626f3350308"
+#   tenant_id           = "c8322656-5c2b-4769-8e53-4bcc906bb52c"
 # }
