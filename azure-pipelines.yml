@@ -1,0 +1,40 @@
+trigger:
+  main
+
+pool:
+  Agent02
+
+steps:
+  - 
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
+
+- task: TerraformTask@5
+  displayname: init
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
+    backendServiceArm: 'serviceconnection02'
+    backendAzureRmResourceGroupName: 'vishnu-rg'
+    backendAzureRmStorageAccountName: 'vashurg02'
+    backendAzureRmContainerName: 'vishnu-cont'
+    backendAzureRmKey: 'terrafor.tfstate'
+
+- task: TerraformTask@5
+  displayname:plan
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
+    environmentServiceNameAzureRM: 'serviceconnection02'
+
+- task: TerraformTask@5
+  displayname:apply
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
+    commandOptions: '-auto-approve'
+    environmentServiceNameAzureRM: 'serviceconnection02'
