@@ -1,17 +1,17 @@
 trigger:
-  main
+- main
 
 pool:
   Agent02
 
 steps:
-  - 
+
 - task: TerraformInstaller@1
   inputs:
     terraformVersion: 'latest'
 
 - task: TerraformTask@5
-  displayname: init
+  displayName: init
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -23,7 +23,7 @@ steps:
     backendAzureRmKey: 'terrafor.tfstate'
 
 - task: TerraformTask@5
-  displayname:plan
+  displayName: plan
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -31,7 +31,7 @@ steps:
     environmentServiceNameAzureRM: 'serviceconnection02'
 
 - task: TerraformTask@5
-  displayname:apply
+  displayName: apply
   inputs:
     provider: 'azurerm'
     command: 'apply'
