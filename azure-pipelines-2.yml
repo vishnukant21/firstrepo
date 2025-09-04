@@ -1,8 +1,8 @@
 trigger:
 - main
 
-pool:
-  name: Agent01
+pool: Agent01
+
 
 jobs: 
 - job: initplan
@@ -56,6 +56,6 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'apply'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-apply'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
       commandOptions: '-auto-approve'
       environmentServiceNameAzureRM: 'serviceconnection01'
