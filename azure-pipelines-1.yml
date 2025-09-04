@@ -9,8 +9,8 @@ steps:
 - task: TerraformInstaller@1
   inputs:
     terraformVersion: 'latest'
-- task: TerraformTask@5
-displayName: 'Init'
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Init'
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -20,26 +20,28 @@ displayName: 'Init'
     backendAzureRmContainerName: 'vashu-cont'
     backendAzureRmKey: 'terraform.tfstate'
 
-- task: TerraformTask@5
-displayName: 'Validate'
+
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Validate'
   inputs:
     provider: 'azurerm'
     command: 'validate'
     workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
 
-- task: TerraformTask@5
-displayName: 'Plan'
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Plan'
   inputs:
     provider: 'azurerm'
     command: 'plan'
     workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
     environmentServiceNameAzureRM: 'serviceconnection02'
 
-- task: TerraformTask@5
-displayName: 'Apply'
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Apply'
   inputs:
     provider: 'azurerm'
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
     commandOptions: '-auto-approve'
     environmentServiceNameAzureRM: 'serviceconnection02'
+  
