@@ -38,6 +38,19 @@ jobs:
   pool: Agent01
   dependsOn: initplan
   steps:
+
+  - task: TerraformTask@5
+    displayName: init
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
+      backendServiceArm: 'serviceconnection01'
+      backendAzureRmResourceGroupName: 'vishnu-rg'
+      backendAzureRmStorageAccountName: 'vishnu-stg'
+      backendAzureRmContainerName: 'vishnu-cont'
+      backendAzureRmKey: 'terraform.tfstate'
+
   - task: TerraformTask@5
     displayName: apply
     inputs:
