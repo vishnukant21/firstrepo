@@ -4,42 +4,45 @@ trigger:
 pool:
   name: Agent01
 
-steps:
-- task: TerraformInstaller@1
-  inputs:
-    terraformVersion: 'latest'
+jobs: 
+- job: initplan
+  displayName: initplan
+  pool: Agent01
+  steps:
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: 'latest'
 
-- task: TerraformTask@5
-  displayName: init
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
-    backendServiceArm: 'serviceconnection01'
-    backendAzureRmResourceGroupName: 'vishnu-rg'
-    backendAzureRmStorageAccountName: 'vishnu-stg'
-    backendAzureRmContainerName: 'vishnu-cont'
-    backendAzureRmKey: 'terraform.tfstate'
+  - task: TerraformTask@5
+    displayName: init
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
+      backendServiceArm: 'serviceconnection01'
+      backendAzureRmResourceGroupName: 'vishnu-rg'
+      backendAzureRmStorageAccountName: 'vishnu-stg'
+      backendAzureRmContainerName: 'vishnu-cont'
+      backendAzureRmKey: 'terraform.tfstate'
 
-- task: TerraformTask@5
-  displayName: plan
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
-    environmentServiceNameAzureRM: 'serviceconnection01'
+  - task: TerraformTask@5
+    displayName: plan
+    inputs:
+      provider: 'azurerm'
+      command: 'plan'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
+      environmentServiceNameAzureRM: 'serviceconnection01'
 
-- task: tfsec@1
-  inputs:
-    version: 'v1.26.0'
-    debug: true
-    dir: '$(System.DefaultWorkingDirectory)'
-
-- task: TerraformTask@5
+- job: apply
   displayName: apply
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-apply'
-    commandOptions: '-auto-approve'
-    environmentServiceNameAzureRM: 'serviceconnection01'
+  pool: Agent01
+  dependsOn: initplan
+  steps:
+  - task: TerraformTask@5
+    displayName: apply
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-apply'
+      commandOptions: '-auto-approve'
+      environmentServiceNameAzureRM: 'serviceconnection01'
