@@ -1,48 +1,47 @@
 trigger:
 - main
+
 pool:
   name: Agent02
 
 steps:
-- checkout: self
 
 - task: TerraformInstaller@1
   inputs:
     terraformVersion: 'latest'
 
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Init'
+- task: TerraformTask@5
+  displayName: init
   inputs:
     provider: 'azurerm'
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
-    backendServiceArm: 'serviceconnection02'
-    backendAzureRmResourceGroupName: 'vishnu-rg'
+    backendServiceArm: 'serviceconnection01'
+    backendAzureRmResourceGroupName: 'vashu-rg'
     backendAzureRmStorageAccountName: 'vashu-stg'
     backendAzureRmContainerName: 'vashu-cont'
     backendAzureRmKey: 'terraform.tfstate'
 
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Validate'
+- task: TerraformTask@5
+  displayName: validate
   inputs:
     provider: 'azurerm'
     command: 'validate'
     workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
 
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Plan'
+- task: TerraformTask@5
+  displayName: plan
   inputs:
     provider: 'azurerm'
     command: 'plan'
     workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
-    environmentServiceNameAzureRM: 'serviceconnection02'
+    environmentServiceNameAzureRM: 'serviceconnection01'
 
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Apply'
+- task: TerraformTask@5
+  displayName: apply
   inputs:
     provider: 'azurerm'
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/to-do-infra'
     commandOptions: '-auto-approve'
-    environmentServiceNameAzureRM: 'serviceconnection02'
-  
+    environmentServiceNameAzureRM: 'serviceconnection01'
